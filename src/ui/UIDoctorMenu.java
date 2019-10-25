@@ -5,7 +5,10 @@
  */
 package ui;
 
+import java.text.ParseException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import model.Doctor;
 import static ui.UIMenu.MONTHS;
 import static ui.UIMenu.showMenu;
 
@@ -15,7 +18,9 @@ import static ui.UIMenu.showMenu;
  */
 public class UIDoctorMenu {
     
-    public static void showDoctorMenu(){
+    public static ArrayList<Doctor> doctorsAvailableAppointments = new ArrayList<>();
+    
+    public static void showDoctorMenu() throws ParseException{
         int response = 0;
         do{
             System.out.println("\n\n");
@@ -31,9 +36,7 @@ public class UIDoctorMenu {
             switch (response){
                 case 1:
                     System.out.println("::Book an appointment");
-                    for(int i=1; i<4;i++){
-                        System.out.println(1+"."+MONTHS[i]);
-                    }
+                    showAddAvalaibleAppointmentsMenu();
                     break;
                 case 2:
                     System.out.println("::My appointments");
@@ -46,7 +49,7 @@ public class UIDoctorMenu {
         }while(response != 0);
     }
     
-    public static void showAddAvalaibleAppointmentsMenu(){
+    public static void showAddAvalaibleAppointmentsMenu() throws ParseException{
          int response = 0;
         do{
             System.out.println("");
@@ -54,7 +57,7 @@ public class UIDoctorMenu {
             System.out.println(":: Select a Moth");
             for(int i=0; i<4; i++){
                 int j = i+1;
-                System.out.println(j +". "+UIMenu.MONTHS[j]);
+                System.out.println(j +". "+UIMenu.MONTHS[i]);
             }
             System.out.println("0. Return");
             
@@ -62,11 +65,38 @@ public class UIDoctorMenu {
             response = Integer.valueOf(sc.nextLine());
             if(response > 0 && response < 5){
                 int monthSelected = response;
+                System.out.println(monthSelected+" . "+UIMenu.MONTHS[monthSelected]);
+                System.out.println("Insert the date available: [dd/mm/yy]");
+                String date = sc.nextLine();
+                System.out.println("Your date is: "+date+"\n1. Correct \n2. Change Date");
+                int responseDate = Integer.valueOf(sc.nextLine());
+                if(responseDate == 2) continue;
                 
+                /**
+                 * Mientras seleccione Change Time le mostrara el menu
+                 */
+                int responseTime = 0;
+                String time = "";
+                do{
+                    System.out.println("Insert the time available for date. "+date+"[16:00]");
+                    time = sc.nextLine();
+                    System.out.println("Your time is: "+time+"\n1. Correct \n2. Change Time");
+                    responseTime = Integer.valueOf(sc.nextLine());
+                }while(responseTime == 2);
+                
+                UIMenu.doctorLogged.addAvailableAppointment(date, time);
+                checkDoctorAvailableAppointments(UIMenu.doctorLogged);
             }else if(response == 0){
                 showDoctorMenu();
             }
         }while(response != 0);
+    }
+    
+    private static void checkDoctorAvailableAppointments(Doctor doctor){
+        if(doctor.getAvailableAppointments().size() > 0
+                && !doctorsAvailableAppointments.contains(doctor)){
+            doctorsAvailableAppointments.add(doctor);
+        }
     }
     
 }

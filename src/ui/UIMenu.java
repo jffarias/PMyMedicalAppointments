@@ -5,10 +5,12 @@
  */
 package ui;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import mymedicalappointments.Doctor;
-import mymedicalappointments.Patient;
+import model.Doctor;
+import model.Patient;
+import static ui.UIDoctorMenu.showDoctorMenu;
 
 
 
@@ -24,7 +26,7 @@ public class UIMenu {
     public static Patient patinetLogged;
     
     
-    public static void showMenu(){
+    public static void showMenu() throws ParseException{
         System.out.println("Welcome to My Appointments");
         System.out.println("Selecciona la opción deseada");
 
@@ -55,7 +57,7 @@ public class UIMenu {
         }while (response != 0);
     }
     
-    private static void authUser(int userType){
+    private static void authUser(int userType) throws ParseException{
         //userType = 1 Doctor
         //userType = 2 Patient
 
@@ -81,7 +83,7 @@ public class UIMenu {
                         emailCorrect = true;
                         //Obtener el usuario logeado
                         doctorLogged = d;
-                        //showDoctorMenu
+                        showDoctorMenu();
                     }
                 }
             }
@@ -101,7 +103,7 @@ public class UIMenu {
 
     }
 
-    static void showPatientMenu(){
+    static void showPatientMenu() throws ParseException{
         int response = 0;
         do {
             System.out.println("\n\n");

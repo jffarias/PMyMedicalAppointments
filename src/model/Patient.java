@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mymedicalappointments;
+package model;
 
 /**
  *
  * @author iesous_flor
  */
 public class Patient extends User{
+    //Patient hereda de User
     private String birthday;
     private double weight;
     private double height;
     private String blood;
+    
+    //private ArrayList<A
     
     public Patient(String name, String email){
         super(name, email);
@@ -60,6 +63,13 @@ public class Patient extends User{
                 "\n Weight: " +getWeight()+ 
                 "\n Height"+getHeight()+
                 "\nBlood"+blood;
+    }
+
+    @Override
+    public void showDataUser() {
+        System.out.println("Paciente");
+        System.out.println("Historial clinico en este Hospital");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

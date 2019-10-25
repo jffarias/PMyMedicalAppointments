@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mymedicalappointments;
+package model;
 
 /**
  *
  * @author i5
  */
-public class User {
-    
+public abstract class User {
+    //Video 26 - Hacemos abstrac User
     private int id;
     private String name;
     private String email;
@@ -72,4 +72,10 @@ public class User {
                 "\nAddreess: "+address+". Phone: "+phoneNumber;
     }
     
+    //Video 27 - Miembros abstractos
+    /*Los Métodos Abstractos son los métodos que debemos 
+    implementar obligatoriamente cada vez que usemos 
+    nuestras clases abstractas, mientras que los métodos 
+    que no sean abstractos van a ser opcionales.*/
+    public abstract void showDataUser();
 }
