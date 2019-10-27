@@ -35,14 +35,13 @@ public class UIDoctorMenu {
 
             switch (response){
                 case 1:
-                    System.out.println("::Book an appointment");
                     showAddAvalaibleAppointmentsMenu();
                     break;
                 case 2:
-                    System.out.println("::My appointments");
+                    showDoctorMyAppointments();
                     break;
                 case 0:
-                    UIMenu.showMenu();
+                    //UIMenu.showMenu();
                     break;
             }
             
@@ -52,7 +51,8 @@ public class UIDoctorMenu {
     public static void showAddAvalaibleAppointmentsMenu() throws ParseException{
          int response = 0;
         do{
-            System.out.println("");
+            System.out.println("\n");
+            System.out.println("::Book an appointment");
             System.out.println(":: Add Available Appointment");
             System.out.println(":: Select a Moth");
             for(int i=0; i<4; i++){
@@ -65,7 +65,7 @@ public class UIDoctorMenu {
             response = Integer.valueOf(sc.nextLine());
             if(response > 0 && response < 5){
                 int monthSelected = response;
-                System.out.println(monthSelected+" . "+UIMenu.MONTHS[monthSelected]);
+                System.out.println(monthSelected+" . "+UIMenu.MONTHS[monthSelected-1]);
                 System.out.println("Insert the date available: [dd/mm/yy]");
                 String date = sc.nextLine();
                 System.out.println("Your date is: "+date+"\n1. Correct \n2. Change Date");
@@ -87,7 +87,8 @@ public class UIDoctorMenu {
                 UIMenu.doctorLogged.addAvailableAppointment(date, time);
                 checkDoctorAvailableAppointments(UIMenu.doctorLogged);
             }else if(response == 0){
-                showDoctorMenu();
+                //showDoctorMenu();
+                break;
             }
         }while(response != 0);
     }
@@ -97,6 +98,27 @@ public class UIDoctorMenu {
                 && !doctorsAvailableAppointments.contains(doctor)){
             doctorsAvailableAppointments.add(doctor);
         }
+    }
+    
+    private static void showDoctorMyAppointments(){
+        int response = 0;
+        do{
+            System.out.println("\n");
+            System.out.println("::My Appointments");
+            if(UIMenu.doctorLogged.getAvailableAppointments().size() == 0){
+                System.out.println("You don´t have Appointments");
+                break;
+            }
+            for(int i=0; i < UIMenu.doctorLogged.getAvailableAppointments().size(); i++){
+                int j =  i + 1;
+                System.out.println(j+" . "+
+                        "Date: "+UIMenu.doctorLogged.getAvailableAppointments().get(i).getDate()+
+                        " Time: "+UIMenu.doctorLogged.getAvailableAppointments().get(i).getTime());
+            }
+            System.out.println("0. Return");
+            Scanner sc = new Scanner(System.in);
+            response = Integer.valueOf(sc.nextLine());
+        }while(response != 0);
     }
     
 }

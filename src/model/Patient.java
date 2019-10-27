@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author iesous_flor
@@ -16,7 +19,20 @@ public class Patient extends User{
     private double height;
     private String blood;
     
-    //private ArrayList<A
+    //Video 37 - Agendamos las citas
+    private ArrayList<AppointmentDoctor> appointmentDoctors = new ArrayList<>();
+    private ArrayList<AppointmentNurse> appointmentNurses = new ArrayList<>();
+    
+    public ArrayList<AppointmentDoctor> getAppointmentDoctors(){
+        return appointmentDoctors;
+    }
+    
+    //Doctor doctor, Date date, String time
+    public void addAppointmentDoctors(Doctor doctor, Date date, String time){
+        AppointmentDoctor appointmentDoctor = new AppointmentDoctor(this, doctor);
+        appointmentDoctor.schedul(date, time);
+        appointmentDoctors.add(appointmentDoctor);
+    }
     
     public Patient(String name, String email){
         super(name, email);

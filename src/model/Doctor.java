@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -78,8 +80,12 @@ public class Doctor extends User{
         private String time;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
         
-        public AvailableAppointment(String date, String time) throws ParseException{
-            this.date = format.parse(date);
+        public AvailableAppointment(String date, String time) {
+            try {
+                this.date = format.parse(date);
+            } catch (ParseException ex) {
+                Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.time = time;
         }
         
@@ -95,8 +101,12 @@ public class Doctor extends User{
             this.date = date;
         }
 
-        public Date getDate() {
-            return this.date;
+        public Date getDate(String DATE) {
+            return date;
+        }
+        
+        public String getDate(){
+            return format.format(date);
         }
         
         public void setTime(String time){

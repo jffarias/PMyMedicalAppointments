@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -17,6 +18,12 @@ public class AppointmentDoctor implements ISchedulable{
     private Doctor doctor;
     private Date date;
     private String time;
+    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
+    
+    public AppointmentDoctor(Patient patient, Doctor doctor){
+        this.doctor = doctor;
+        this.patient = patient;
+    }
 
     public int getId() {
         return id;
@@ -45,13 +52,17 @@ public class AppointmentDoctor implements ISchedulable{
     public Date getDate() {
         return date;
     }
+    
+    public String getDate(String date){
+        return format.format(this.date);
+    }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
     public String getTime() {
-        return time;
+        return time + " hrs.";
     }
 
     public void setTime(String time) {
@@ -60,8 +71,8 @@ public class AppointmentDoctor implements ISchedulable{
 
     @Override
     public void schedul(Date date, String time) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.date = date;
+        this.time = time;
     }
-    
     
 }
